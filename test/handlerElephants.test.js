@@ -25,4 +25,7 @@ describe('Testes da função HandlerElephants', () => {
   it('Testa se a função retorna ["Friday", "Saturday", "Sunday", "Tuesday"] caso parâmetro "availability" seja chamado', () => {
     expect(handlerElephants('availability')).toEqual(['Friday', 'Saturday', 'Sunday', 'Tuesday']);
   });
+  it('Testa se o parâmetro não for uma string', () => {
+    expect(handlerElephants(6)).toBe('Parâmetro inválido, é necessário uma string');
+  });
 });
