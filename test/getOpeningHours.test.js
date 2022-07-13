@@ -1,7 +1,7 @@
 const getOpeningHours = require('../src/getOpeningHours');
 
 describe('Testes da função getOpeningHours', () => {
-  it('Testa se a função retorna um objeto com todos dias e horários de funcionamento', () => {
+  it('Testa se a função retorna todos dias e horários de funcionamento quando passado nenhum parâmetro', () => {
     expect(getOpeningHours()).toEqual({
       Tuesday: { open: 8, close: 6 },
       Wednesday: { open: 8, close: 6 },
@@ -11,6 +11,12 @@ describe('Testes da função getOpeningHours', () => {
       Sunday: { open: 8, close: 8 },
       Monday: { open: 0, close: 0 },
     });
+  });
+  it('Testa se a função retorna um objeto quando passado parâmetro vazio', () => {
+    expect(typeof getOpeningHours()).toBe('object');
+  });
+  it('Testa se a função retorna uma string quando passado dia e horário corretamente', () => {
+    expect(typeof getOpeningHours('Thursday', '10:30-AM')).toBe('string');
   });
   it('Testa se a função retorna "The zoo is open" quando passado dia e horário corretamente', () => {
     expect(getOpeningHours('Thursday', '10:30-AM')).toBe('The zoo is open');
