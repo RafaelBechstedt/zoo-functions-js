@@ -1,5 +1,7 @@
 const getOpeningHours = require('../src/getOpeningHours');
 
+const closedPhrase = 'The zoo is closed';
+
 describe('Testes da função getOpeningHours', () => {
   it('Testa se a função retorna todos dias e horários de funcionamento quando passado nenhum parâmetro', () => {
     expect(getOpeningHours()).toEqual({
@@ -18,14 +20,23 @@ describe('Testes da função getOpeningHours', () => {
   it('Testa se a função retorna uma string quando passado dia e horário corretamente', () => {
     expect(typeof getOpeningHours('Thursday', '10:30-AM')).toBe('string');
   });
-  it('Testa se a função retorna "The zoo is open" quando passado dia e horário corretamente', () => {
+  it('Testa se a função retorna "The zoo is open" quando passado dia e horário corretamente AM', () => {
     expect(getOpeningHours('Thursday', '10:30-AM')).toBe('The zoo is open');
   });
+  it('Testa se a função retorna "The zoo is open" quando passado dia e horário corretamente PM', () => {
+    expect(getOpeningHours('Friday', '03:30-PM')).toBe('The zoo is open');
+  });
+  it('Testa se a função retorna "The zoo is close" quando passado dia e horário que está fechado AM', () => {
+    expect(getOpeningHours('Thursday', '09:30-AM')).toBe(closedPhrase);
+  });
+  it('Testa se a função retorna "The zoo is close" quando passado dia e horário que está fechado PM', () => {
+    expect(getOpeningHours('Wednesday', '09:30-PM')).toBe(closedPhrase);
+  });
   it('Testa se a função retorna "The zoo is close" quando passado dia e horário que está fechado', () => {
-    expect(getOpeningHours('Thursday', '09:30-AM')).toBe('The zoo is closed');
+    expect(getOpeningHours('Monday', '09:30-AM')).toBe(closedPhrase);
   });
   it('Testa se a função é case sansitive', () => {
-    expect(getOpeningHours('thursday', '09:30-AM')).toBe('The zoo is closed');
+    expect(getOpeningHours('thursday', '09:30-AM')).toBe(closedPhrase);
   });
   it('Testa quando é passado um dia mas de forma errada', () => {
     expect(() => getOpeningHours('Mon', '09:30-AM')).toThrow('The day must be valid. Example: Monday');
